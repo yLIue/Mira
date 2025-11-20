@@ -13,6 +13,14 @@ debug.cleanDebug()
 # global
 LOCAL_PATH = debug.DebugPath(PATH)
 COMMANDS = {}
+CONFIG: dict
+# 目录结构
+CONFIG_PATH = f'{LOCAL_PATH}config'
+CONFIG_USER_FILE = f'{CONFIG_PATH}\\user.cfg'
+'''
+-config
+--user.cfg
+'''
 
 
 def getCommand(_command: str, _commands: dict) -> callable or None:
@@ -31,8 +39,17 @@ def getCommand(_command: str, _commands: dict) -> callable or None:
     return _commands[listMatcher[0]]
 
 
-def Config():
-    print('Config')
+def Config(_args: list):
+    _commands = ['-global']
+    if not len(_args):
+        printConfig()
+
+
+def printConfig():
+    print('全局变量')
+    for _class in CONFIG.keys():
+        for _title in CONFIG[_class].keys():
+            print(f'{_class}.{_title}:{CONFIG[_class][_title]}')
 
 
 def Help():
@@ -46,25 +63,25 @@ def resolveArgs(_args: list[str]):
         Help()
         return
     try:
-        _command = getCommand(_args[0], COMMANDS)()
+        _command = getCommand(_args[0], COMMANDS)(_args[1:])
     except TypeError:
         return
 
 
 def initMira() -> None:
-    global COMMANDS
+    global COMMANDS, CONFIG
     COMMANDS = {
         'config': Config,
-        'c': Config,
         'help': Help
     }
     try:
-        os.mkdir(LOCAL_PATH + 'config')
-        with open(LOCAL_PATH + 'config\\user.cfg', 'w') as f:
+        os.mkdir(CONFIG_PATH)
+        with open(CONFIG_USER_FILE, 'w') as f:
             f.write('user.name:default\nuser.email:default@mira.com')
         debug.logOk('初始化成功')
     except FileExistsError:
         debug.logError('初始化失败:配置文件存在')
+    CONFIG = readConfig()
 
 
 def readConfig() -> dict:
@@ -84,7 +101,6 @@ def readConfig() -> dict:
 
 def main() -> None:
     initMira()
-    readConfig()
     args = sys.argv[1:]
     resolveArgs(args)
 
