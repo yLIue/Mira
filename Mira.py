@@ -1,26 +1,30 @@
 import os
 from debugtools import *
+from module import *
 import sys
 
 # initGlobal
-PATH = '\\'.join(sys.argv[0].split('\\')[:-1]) + '\\'
+PATH = '\\'.join(__file__.split('\\')[:-1]) + '\\'
 # debug
 debug = Debug('Mira', True)
 debug.logSet(_fillFunc=True)
 debug.showDebugLog()
 debug.setLocalPath(PATH)
+# 可选,清除debug的文件夹
 debug.cleanDebug()
 # global
 LOCAL_PATH = debug.DebugPath(PATH)
 COMMANDS = {}
-CONFIG: dict
+CONFIG = {}
+DEFAULTS_CONFIG = {
+    'user': {
+        'name': 'default',
+        'email': 'default@mira.com'
+    }
+}
 # 目录结构
 CONFIG_PATH = f'{LOCAL_PATH}config'
-CONFIG_USER_FILE = f'{CONFIG_PATH}\\user.cfg'
-'''
--config
---user.cfg
-'''
+CONFIG_FILE = f'{CONFIG_PATH}\\config'
 
 
 def getCommand(_command: str, _commands: dict) -> callable or None:
@@ -40,9 +44,10 @@ def getCommand(_command: str, _commands: dict) -> callable or None:
 
 
 def Config(_args: list):
-    _commands = ['-global']
-    if not len(_args):
-        printConfig()
+    debug.log(_args)
+    # _commands = ['--global']
+    # if not len(_args):
+    #     printConfig()
 
 
 def printConfig():
@@ -74,14 +79,18 @@ def initMira() -> None:
         'config': Config,
         'help': Help
     }
+
+    # 初始化配置文件
     try:
         os.mkdir(CONFIG_PATH)
-        with open(CONFIG_USER_FILE, 'w') as f:
-            f.write('user.name:default\nuser.email:default@mira.com')
-        debug.logOk('初始化成功')
+        configIni = IniProcess(CONFIG_FILE)
+        configIni.save(DEFAULTS_CONFIG)
     except FileExistsError:
         debug.logError('初始化失败:配置文件存在')
-    CONFIG = readConfig()
+
+    # 读取配置文件
+    configIni = IniProcess(CONFIG_FILE)
+    CONFIG = configIni.load()
 
 
 def readConfig() -> dict:
@@ -99,10 +108,23 @@ def readConfig() -> dict:
         return _infos
 
 
+def Debug() -> None:
+    if not debug.isDebug():
+        return
+    print()
+    print(f'{"-" * 5}Debug{"-" * 5}')
+    print('global')
+    print(f'PATH: {PATH}')
+    print(f'CONFIG: {CONFIG}')
+    print(f'DebugTemp: ')
+    print()
+
+
 def main() -> None:
     initMira()
     args = sys.argv[1:]
     resolveArgs(args)
+    Debug()
 
 
 if __name__ == '__main__':
