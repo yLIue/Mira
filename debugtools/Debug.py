@@ -55,7 +55,8 @@ class Debug(object):
             os.system(f'start cmd /c "python {_tPath} path {self.__tempPath} color {self.__color}"')
             self.initTempFile()
 
-
+    def isDebug(self):
+        return self.__switch
 
     def showDebugLog(self):
         self.__showIntoLog = True
