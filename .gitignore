@@ -1,4 +1,22 @@
-# Python
-.idea/
-__pycache__/
+# Test
 .debug/
+.befor/
+
+# General
+.idea/
+
+# Python
+
+.venv/
+dist/
+run.txt
+setup.py
+__pycache__
+
+# HBuilder X
+unpackage/
+
+# C
+cmake-build-debug/
+CMakeLists.txt
+*.exe

@@ -1,0 +1,55 @@
+# Mira
+
+Mira是一款文件映射工具，它可以将本地的文件映射到不同的地方。源文件发生更改时，映射文件也会随之改变，同时，映射文件改变也可以同步到源文件。
+
+## Mira的核心功能
+
+Mira的核心功能有两个，分别是**映射**和**同步**
+
+### 映射
+
+Mira可以将你的源文件映射到你磁盘的任意位置
+
+### 同步
+
+Mira可以将源文件同步到映射文件，也可以将映射文件同步到源文件
+
+## 目录结构
+
+### Mira目录结构
+
+```
+Mira/
+├── config/
+│   ├── user.cfg
+├── .gitignore
+└── README.md
+```
+
+
+
+```
+Mira/
+├── config/
+│   ├── components/
+│   │   ├── Button.js
+│   │   └── Header.js
+│   ├── utils/
+│   │   └── helpers.js
+│   └── index.js
+├── public/
+│   ├── index.html
+│   └── favicon.ico
+├── package.json
+└── README.md
+```
+
+
+
+## 开发进度
+
+- [ ] 配置文件
+- [ ] 仓库初始化
+- [ ] 文件映射
+- [ ] 文件同步
+- [ ] log
