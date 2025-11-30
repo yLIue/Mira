@@ -251,7 +251,7 @@ class Debug(object):
     def DebugPath(self, _defaultPath: str):
         _localPath = self.__localPath
         try:
-            _path = _localPath + '\\.debug'
+            _path = _localPath + '.debug'
         except TypeError:
             self.logError('初始化debug文件失败:没有设置本地路径,请用Debug.setLocalPath')
             return _defaultPath
@@ -286,6 +286,7 @@ class Debug(object):
                 self.__intoLog('清除成功', 'OK', 'cleanDebug')
             except FileNotFoundError:
                 self.__intoLog('清除失败:文件不存在', 'ERR', 'cleanDebug')
+        self.log()
 
     # 测试内容
     def __rMain(self, _tips: bool = True):
