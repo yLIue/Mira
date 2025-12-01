@@ -7,7 +7,7 @@ PATH = '\\'.join(__file__.split('\\')[:-1]) + '\\'
 debug.setLocalPath(PATH)
 
 # 可选,清除debug的文件夹
-debug.cleanDebug()
+# debug.cleanDebug()
 
 # global
 LOCAL_PATH = debug.DebugPath(PATH)
@@ -40,15 +40,15 @@ def loadConfig() -> None:
 
 def resolveArgs(_args):
     if not len(_args):
-        debug.log()
-        debug.logError('没有任何指令')
-        debug.log()
-
-        print('没有任何参数')
+        Error.NoArgs()
         return
 
     _command = getCommand(_args[0], list(COMMANDS.keys()))
-    FUNCTION_DICT[_command](_args[1:])
+    FUNCTION_DICT[_command](_args[1:], {
+        'commands': COMMANDS[_command],
+        'config': CONFIG,
+        'directory': DIRECTORY
+    })
 
 
 def main() -> None:

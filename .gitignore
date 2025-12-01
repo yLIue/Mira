@@ -1,6 +1,7 @@
 # Test
 .debug/
 .befor/
+.log/
 
 # General
 .idea/
