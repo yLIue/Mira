@@ -37,6 +37,10 @@ def initDirectoryStructure() -> None:
 
 def initConfig() -> None:
     _directory = IniProcess.load(DIRECTORY_PATH)
+    _configPath = _directory['etc']['configFile']
+    if os.path.exists(_configPath):
+        debug.logError('config文件存在,跳过初始化')
+        return
     _config = {
         'info': {
             'version': '0.0.1'
@@ -46,7 +50,7 @@ def initConfig() -> None:
             'email': 'default@mira.com'
         }
     }
-    IniProcess.save(_directory['etc']['configFile'], _config)
+    IniProcess.save(_configPath, _config)
 
 
 def initCommands() -> None:
@@ -55,6 +59,7 @@ def initCommands() -> None:
         'config': {
             'long': ['--global']
         },
-        'help': {}
+        'help': {},
+        'init': {}
     }
     IniProcess.save(_directory['etc']['commandsFile'], _commands)

@@ -16,7 +16,8 @@ DIRECTORY = {}
 CONFIG = {}
 COMMANDS = {}
 FUNCTION_DICT = {
-    'config': Config
+    'config': Config,
+    'init': Init
 }
 
 
