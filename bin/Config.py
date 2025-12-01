@@ -1,11 +1,12 @@
 from module import debug, Error, getCommand, IniProcess
 
 
-def Config(_args: list[str], _data: dict):
+def Config(_args: list[str], _data: dict) -> None:
+    debug.log(f'调用config函数,args: {_args}')
+
     _commands = _data['commands']
     _config = _data['config']
     _path = _data['directory']['etc']['configFile']
-    debug.log(f'调用config函数,args: {_args}')
 
     if len(_args) == 0:
         Error.NoArgs()
