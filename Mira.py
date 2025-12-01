@@ -40,11 +40,7 @@ def loadConfig() -> None:
 
 def resolveArgs(_args):
     if not len(_args):
-        debug.log()
-        debug.logError('没有任何指令')
-        debug.log()
-
-        print('没有任何参数')
+        Error.NoArgs()
         return
 
     _command = getCommand(_args[0], list(COMMANDS.keys()))
