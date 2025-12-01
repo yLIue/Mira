@@ -3,7 +3,7 @@ from .Debug import debug
 
 def save(_path: str, _data: dict) -> None:
     try:
-        with open(_path, 'a', encoding='utf-8') as f:
+        with open(_path, 'w', encoding='utf-8') as f:
             for title, dictKey in _data.items():
                 f.write(f'[{title}]\n')
                 for key, value in dictKey.items():
