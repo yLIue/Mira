@@ -91,6 +91,14 @@ class Debug(object):
             _typeStr = _type
         return _typeStr
 
+    @staticmethod
+    def getFunc(_layer: int = 0) -> str:
+        _layer += 1
+        _func = inspect.stack()[_layer].function
+        if _func == '<module>':
+            _func = 'main'
+        return _func
+
     def __getLogStr(self, _msg, _func, _type, _into=False) -> tuple[str, str]:
         self.__layer += 1
         _layer = self.__layer
