@@ -33,8 +33,21 @@ def load(_path: str) -> dict:
                     listKey = line.split('=')
                     key = listKey[0].strip()
                     value = listKey[1].strip()
+                    if value.startswith('[') and line.endswith(']'):
+                        value = loadList(value[1:-1])
                     _data[title][key] = value
         return _data
     except FileNotFoundError:
         debug.logError(f'读取配置文件失败 path: {_path}')
         raise FileNotFoundError
+
+
+def loadList(_str: str) -> list:
+    _list = []
+    _strs = _str.split(',')
+    if len(_strs) == 0:
+        return _list
+    for _item in _strs:
+        if _item.startswith("'") and _item.endswith("'"):
+            _list.append(_item[1:-1])
+    return _list
