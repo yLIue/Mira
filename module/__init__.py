@@ -3,3 +3,4 @@ from .InitMira import InitMira
 from module import IniProcess
 from .getCommand import getCommand
 from module import Error
+from .getPath import getPath
