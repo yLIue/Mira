@@ -27,6 +27,24 @@ Mira/
 └── end
 ```
 
+### 仓库目录结构
+
+```
+.mira/
+├── logs/
+│	├── commit	//提交记录
+│	└── reflog	//操作记录
+├── staging/	//缓存区
+│	└── staging.table	//缓存表
+├── objects/	//对象
+│	└── [Hash]
+├── config	//配置文件
+├── description	//描述文件
+└── map.table	//映射表
+```
+
+
+
 ## 开发进度
 
 1. 配置文件 [√]
