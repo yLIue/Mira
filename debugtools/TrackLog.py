@@ -1,4 +1,4 @@
-from yliuetools import Debug
+from Debug import Debug
 import os
 import time
 import sys

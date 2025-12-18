@@ -3,8 +3,12 @@ import os
 import shutil
 import time
 from datetime import datetime
-from yliuetools import Color
 import subprocess
+
+if __package__ is None or __package__ == '':
+    from Color import Color
+else:
+    from .Color import Color
 
 
 class Debug(object):
