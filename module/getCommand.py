@@ -1,11 +1,9 @@
 from module import debug
-from module import Error
 
 
 def getCommand(_command: str, _commands: list[str]) -> str | None:
     matcher = [_matcher for _matcher in _commands if _matcher.startswith(_command)]
     if len(matcher) == 0:
-        Error.NoFindCommand(_command, _commands)
         return None
     if len(matcher) > 1:
 
