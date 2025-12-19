@@ -1,6 +1,5 @@
 from .Debug import debug
-from .InitMira import InitMira
-from module import IniProcess
+from module.IniProcess import IniFile
 from .getCommand import getCommand
 from module import Error
 from .getPath import getPath
