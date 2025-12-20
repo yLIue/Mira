@@ -1,8 +1,7 @@
 import sys
-import os
 import traceback
 import miraPath
-import miraInfo as mira
+import miraInfo
 from module import *
 from bin import *
 
@@ -27,11 +26,11 @@ def initMira():
         _configIni = IniFile(miraPath.configIni)
         _configDict = {
             'info': {
-                'version': mira.version
+                'version': miraInfo.version
             },
             'user': {
-                'name': mira.defaultUser,
-                'email': mira.defaultEmail
+                'name': miraInfo.defaultUser,
+                'email': miraInfo.defaultEmail
             }
         }
         _configIni.save(_configDict)
