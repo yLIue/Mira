@@ -2,5 +2,10 @@ from .Debug import debug
 from module.IniProcess import IniFile
 from .getCommand import getCommand
 from module import Error
-from .getPath import getPath
 from .Path import Path
+from .utils import *
+from .staging import Staging
+from .LogFile import LogFile
+from .CommitHash import getCommitFiles
+from .maps import Maps
+from .Head import Head
