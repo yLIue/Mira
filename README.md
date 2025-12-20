@@ -20,35 +20,22 @@ Mira可以将源文件同步到映射文件，也可以将映射文件同步到�
 
 ```
 Mira/
-├── etc/
-│   ├── config.ini
-│	├── commands.ini
-│	└── directories.ini
-└── end
+└── etc/
+    └── config.ini
 ```
 
 ### 仓库目录结构
 
 ```
 .mira/
+├── objects/ ->Hash
 ├── logs/
-│	├── commit	//提交记录
-│	└── reflog	//操作记录
-├── staging/	//缓存区
-│	└── staging.table	//缓存表
-├── objects/	//对象
-│	└── [Hash]
-├── config	//配置文件
-├── description	//描述文件
-└── map.table	//映射表
+│   └── HEAD
+├── staging
+├── maps
+└── HEAD
 ```
 
 
 
 ## 开发进度
-
-1. 配置文件 [√]
-2. 仓库初始化
-3. log
-4. 文件映射
-5. 文件同步
