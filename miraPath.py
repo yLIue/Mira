@@ -5,5 +5,5 @@ debug.setLocalPath(miraPath_path)
 # debug.cleanDebug()
 
 root = Path(debug.DebugPath())
-etcDir = root / 'etc'
-configIni = etcDir / 'config.ini'
+etc = root / 'etc'
+configIni = etc / 'config.ini'
