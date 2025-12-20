@@ -9,13 +9,21 @@ from bin import *
 
 # 函数注册器
 RegisterFunction = {
-    'config': Config
+    'config': Config,
+    'status': Status,
+    'add': Add,
+    'init': Init,
+    'commit': Commit,
+    'look': Look,
+    'log': Log,
+    'map': Map,
+    'reset': Reset
 }
 
 
 def initMira():
     try:
-        os.mkdir(miraPath.etcDir)
+        os.mkdir(miraPath.etc)
         _configIni = IniFile(miraPath.configIni)
         _configDict = {
             'info': {
@@ -27,6 +35,7 @@ def initMira():
             }
         }
         _configIni.save(_configDict)
+        debug.logOk('mira初始化成功')
     except FileExistsError:
         debug.logError('初始化失败 文件已经存在')
 
@@ -35,7 +44,6 @@ def resolveArgs(_args):
     if not len(_args):
         Error.NoArgs()
         return
-
     _command = getCommand(_args[0], list(RegisterFunction.keys()))
     try:
         RegisterFunction[_command](_args[1:])
