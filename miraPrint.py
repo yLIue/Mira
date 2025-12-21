@@ -26,6 +26,7 @@ def noCommand():
     printInCommand('status', '显示提交中的文件状态')
     printInCommand('add', '将提交的内容添加映射关系')
     printInCommand('push', '推送映射文件到指定目录')
+    printInCommand('remove', '删除文件的映射关系')
 
 
 def printCommand(_command, _msg):
