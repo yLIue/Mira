@@ -2,6 +2,7 @@ import hashlib
 import os
 import repoPath
 from .Path import Path
+from module import Error
 
 
 def getHash(data: bytes) -> str:
@@ -25,3 +26,10 @@ def toPath(_path: str | Path) -> Path:
     if isinstance(_path, Path):
         return _path
     return Path(_path)
+
+
+def isMira() -> bool:
+    _isMira = os.path.exists(repoPath.root)
+    if not _isMira:
+        Error.NotMira()
+    return _isMira
