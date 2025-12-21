@@ -8,7 +8,7 @@ def Reset(_args: list[str]):
     if not isMira():
         return
     isHard = False
-    if len(_args) == 0 and len(_args) > 2:
+    if len(_args) == 0 or len(_args) > 2:
         Error.ResetArgError()
         return
     if len(_args) == 2:
