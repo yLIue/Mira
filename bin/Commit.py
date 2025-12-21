@@ -1,14 +1,15 @@
 import repoPath
-from module import debug, Staging, writeBlob, LogFile, Head, isMira
+from module import debug, Staging, writeBlob, LogFile, Head, isMira, Error
 
 
 def Commit(_args: list[str]):
     debug.log(f'调用Commit函数,args: {_args}')
     if not isMira():
         return
-    if len(_args) < 2:
-        print('传参有错误')
+    if len(_args) != 2 or _args[0] != '-m':
+        Error.CommitArgError()
         return
+
     _dict = Staging(repoPath.root).all()
     if len(_dict) == 0:
         print('初次提交\n没有要提交的内容(创建/复制文件并使用 "mira add" 来跟踪)')
