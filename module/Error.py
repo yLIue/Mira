@@ -32,3 +32,8 @@ def AddArgError():
 
 def NotFindFile(_file):
     print(f'致命错误: 文件 {_file} 不存在')
+
+
+def ResetArgError():
+    print('致命错误: reset 参数有误')
+    print("'mira add [--hard] <hash>'")

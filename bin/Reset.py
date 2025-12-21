@@ -1,6 +1,6 @@
 import os
 import repoPath
-from module import debug, Head, getCommitFiles, Staging, LogFile, isMira
+from module import debug, Head, getCommitFiles, Staging, LogFile, isMira, Error
 
 
 def Reset(_args: list[str]):
@@ -8,9 +8,13 @@ def Reset(_args: list[str]):
     if not isMira():
         return
     isHard = False
-    if len(_args) == 0:
+    if len(_args) == 0 and len(_args) > 2:
+        Error.ResetArgError()
         return
     if len(_args) == 2:
+        if _args[0] != '--hard':
+            Error.ResetArgError()
+            return
         _hash = _args[1]
         isHard = True
     else:
