@@ -15,6 +15,10 @@ class Maps:
             pass
         return _dict
 
+    def delete(self, _tag):
+        self.table.pop(_tag)
+        self.save()
+
     def add(self, _tag, _filePath, _hash, _path, _fileName):
         self.table[_tag] = {
             'file': _filePath,
