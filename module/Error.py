@@ -17,3 +17,9 @@ def NoFindCommand(_command, _commands):
     debug.log(f'commands: {_commands}', 'OUTPUT', _func)
     debug.log()
     print(f"无法识别的命令 '{_command}'")
+
+
+def NotMira():
+    _func = debug.getFunc(1)
+    debug.logError('不存在mira仓库', _func)
+    print('致命错误:不是一个 mira 仓库')
