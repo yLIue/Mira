@@ -1,14 +1,16 @@
 def initRepo(_repoPath: str):
-    print(f'已初始化空的mira仓库,路径: {_repoPath}')
+    print(f'已初始化空的Mira仓库,路径: {_repoPath}')
 
 
 def reInitRepo(_repoPath: str):
-    print(f'已经重新初始化mira仓库,路径: {_repoPath}')
+    print(f'已经重新初始化Mira仓库,路径: {_repoPath}')
 
 
 def noCommand():
     print('以下是在各种情况下常用的Mira命令\n')
-    print('创建一个工作区')
+    print('更改你的配置文件')
+    printCommand('config', '修改Mira的配置文件')
+    print('\n创建一个工作区')
     printCommand('init', 'init一个空的Mira仓库或重新初始化')
     print('\n针对当前的变更进行工作')
     printCommand('add', '将文件内容添加到缓冲区内')
