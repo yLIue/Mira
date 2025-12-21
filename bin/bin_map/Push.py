@@ -1,9 +1,11 @@
 import repoPath
-from module import debug, Maps, getCommitFiles, LogFile
+from module import debug, Maps, getCommitFiles, LogFile, isMira
 
 
 def Push(_args: list[str]):
     debug.log(f'调用map.Push函数,args: {_args}')
+    if not isMira():
+        return
     if len(_args) == 0 and len(_args) > 1:
         print('传参错误')
         return

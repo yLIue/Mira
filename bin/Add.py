@@ -1,10 +1,12 @@
 import os
 import repoPath
-from module import debug, writeBlob, Staging
+from module import debug, writeBlob, Staging, isMira
 
 
 def Add(_args: list[str]):
     debug.log(f'调用Add函数,args: {_args}')
+    if not isMira():
+        return
     if len(_args) != 1:
         return
     _file = _args[0]

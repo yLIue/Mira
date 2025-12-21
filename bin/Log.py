@@ -1,11 +1,13 @@
 import repoPath
 from datetime import datetime
-from module import debug, LogFile, Head
+from module import debug, LogFile, Head, isMira
 from debugtools import Color
 
 
 def Log(_args: list[str]):
     debug.log(f'调用Log函数,args: {_args}')
+    if not isMira():
+        return
     _commits = LogFile(repoPath.root).all()
     index = True
     show = False

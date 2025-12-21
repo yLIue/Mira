@@ -1,10 +1,12 @@
 import repoPath
-from module import debug, getCommitFiles, Maps, Head, LogFile
+from module import debug, getCommitFiles, Maps, Head, LogFile, isMira
 from debugtools import Color
 
 
 def Status(_args: list[str]):
     debug.log(f'调用map.Status函数,args: {_args}')
+    if not isMira():
+        return
     _commitHash = Head(repoPath.root).load()
     if _commitHash == '0' * 40:
         print('当前没有提交记录\n(创建/复制文件并使用 "mira add" 来跟踪)\n(提交文件并使用 "mira commit -m" 来提交)')

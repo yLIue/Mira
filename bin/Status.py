@@ -1,12 +1,13 @@
 import os
 import repoPath
-from module import debug, Staging, getCommitFiles, writeBlob, Head
+from module import debug, Staging, getCommitFiles, writeBlob, Head, isMira
 from debugtools import Color
 
 
 def Status(_args: list[str]):
     debug.log(f'调用Status函数,args: {_args}')
-
+    if not isMira():
+        return
     _commitFiles = getCommitFiles(Head(repoPath.root).load())
     if len(_commitFiles) == 0:
         print('当前没有提交\n')

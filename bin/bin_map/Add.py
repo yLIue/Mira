@@ -1,9 +1,11 @@
 import repoPath
-from module import debug, LogFile, getCommitFiles, Maps
+from module import debug, LogFile, getCommitFiles, Maps, isMira
 
 
 def Add(_args: list[str]):
     debug.log(f'调用map.Add函数,args: {_args}')
+    if not isMira():
+        return
     if len(_args) < 3:
         print('参数错误')
         return

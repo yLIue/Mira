@@ -1,9 +1,11 @@
 import repoPath
-from module import debug, Staging, writeBlob, LogFile, Head
+from module import debug, Staging, writeBlob, LogFile, Head, isMira
 
 
 def Commit(_args: list[str]):
     debug.log(f'调用Commit函数,args: {_args}')
+    if not isMira():
+        return
     if len(_args) < 2:
         print('传参有错误')
         return

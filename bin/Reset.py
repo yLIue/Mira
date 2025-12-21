@@ -1,10 +1,12 @@
 import os
 import repoPath
-from module import debug, Head, getCommitFiles, Staging, LogFile
+from module import debug, Head, getCommitFiles, Staging, LogFile, isMira
 
 
 def Reset(_args: list[str]):
     debug.log(f'调用Reset函数,args: {_args}')
+    if not isMira():
+        return
     isHard = False
     if len(_args) == 0:
         return

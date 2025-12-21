@@ -1,9 +1,11 @@
-from module import debug
+from module import debug, isMira
 import repoPath
 
 
 def Look(_args: list[str]):
     debug.log(f'调用Look函数,args: {_args}')
+    if not isMira():
+        return
     _hash = _args[0]
     result = {}
     i = 0

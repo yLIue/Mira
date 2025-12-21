@@ -1,5 +1,5 @@
-from module import debug, getCommand, Error, LogFile, Maps, getCommitFiles
 import repoPath
+from module import debug, getCommand, Error, LogFile, Maps, getCommitFiles, isMira
 from .bin_map import *
 from debugtools import Color
 
@@ -12,6 +12,8 @@ RegisterFunction = {
 
 def Map(_args: list[str]):
     debug.log(f'调用map函数,args: {_args}')
+    if not isMira():
+        return
     if len(_args) == 0:
         showMap()
         return
