@@ -1,3 +1,4 @@
+import os
 import repoPath
 from module import debug, getCommand, Error, LogFile, Maps, getCommitFiles, isMira
 from .bin_map import *
@@ -6,7 +7,8 @@ from debugtools import Color
 RegisterFunction = {
     'status': Status,
     'add': Add,
-    'push': Push
+    'push': Push,
+    'remove': Remove
 }
 
 
@@ -24,7 +26,7 @@ def showMap():
     _maps = Maps(repoPath.root)
     _mapsTable = _maps.table
     if len(_mapsTable) == 0:
-        print('不存在任何映射\n(使用 "mira map add <映射标记> <文件> <目标路径> <映射文件名>..." 添加映射关系)')
+        print('不存在任何映射\n(使用 "mira map add <映射标记> <文件> <目标路径>..." 添加映射关系)')
         return
 
     _mapsFiles = _maps.files()
@@ -37,9 +39,13 @@ def showMap():
     for _tag, _data in _mapsTable.items():
         _hash = _data['hash']
         _path = _data['file']
+        _aimPath = _data['path']
         _status = eval(_data['status'])
         if _path not in _commitFiles:
-            delete.append(_path)
+            delete.append(('delete', _tag, _path))
+            continue
+        if not os.path.exists(_aimPath):
+            delete.append(('no path', _tag, _path))
             continue
 
         _commitFileHash = _commitFiles[_path]
@@ -54,6 +60,7 @@ def showMap():
     debug.log(f'modified: {modified}')
     debug.log(f'delete: {delete}')
     printCommitIng(commitIng)
+    printDelete(delete)
     printModified(modified)
 
 
@@ -65,10 +72,19 @@ def printCommitIng(_list):
     for mode, tag, _path in _list:
         if mode == 'no push':
             mode += ':'
-            print(Color.red(f'\t{mode:12} {tag:12} {_path}'))
+            print(Color.red(f'\t{mode:12}{tag:12}{_path}'))
         else:
-            print(Color.green(f'\t{tag:12} {_path}'))
+            print(Color.green(f'\t{tag:12}{_path}'))
     print()
+
+
+def printDelete(_list):
+    if len(_list) == 0:
+        return
+    print('失效的映射:\n(使用 "mira map remove <映射标记>..." 来移除标记)')
+    for mode, _tag, _file in _list:
+        mode += ':'
+        print(Color.red(f'\t{mode:12}{_tag:12}{_file}'))
 
 
 def printModified(_list):
@@ -77,15 +93,8 @@ def printModified(_list):
     print(
         '变更的文件:\n(使用 "mira map push <映射标记>..." 将其映射到对应文件夹)')
     for tag, _path in _list:
-        print(Color.red(f'\t{"modified:":12} {tag:12} {_path}'))
+        print(Color.red(f'\t{"modified:":12}{tag:12}{_path}'))
     print()
-
-    #
-    #
-    # def printModified(_list):
-    #     pass
-    #
-    #
 
 
 def resolveArgs(_args):
