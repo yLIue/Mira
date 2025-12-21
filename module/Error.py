@@ -22,4 +22,13 @@ def NoFindCommand(_command, _commands):
 def NotMira():
     _func = debug.getFunc(1)
     debug.logError('不存在mira仓库', _func)
-    print('致命错误:不是一个 mira 仓库')
+    print('致命错误: 不是一个 mira 仓库')
+
+
+def AddArgError():
+    print('致命错误: add 参数有误')
+    print("'mira add <单个文件>'")
+
+
+def NotFindFile(_file):
+    print(f'致命错误: 文件 {_file} 不存在')

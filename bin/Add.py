@@ -1,6 +1,6 @@
 import os
 import repoPath
-from module import debug, writeBlob, Staging, isMira
+from module import debug, writeBlob, Staging, isMira, Error
 
 
 def Add(_args: list[str]):
@@ -8,6 +8,7 @@ def Add(_args: list[str]):
     if not isMira():
         return
     if len(_args) != 1:
+        Error.AddArgError()
         return
     _file = _args[0]
     if _file == '.':
@@ -37,5 +38,4 @@ def addStaging(_file):
             _staging.delete(_file)
             debug.logOk(f'del {_file}')
         except KeyError:
-            print(f'文件 {_file} 不存在')
-            debug.logError(f'不存在的文件')
+            Error.NotFindFile(_file)
