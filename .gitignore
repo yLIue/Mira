@@ -3,6 +3,7 @@
 .befor/
 .log/
 .ytest/
+.ybin/
 
 # General
 .idea/
