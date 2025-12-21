@@ -1,6 +1,14 @@
+import os
+import sys
 from module import debug, Path
 
-miraPath_path = '\\'.join(__file__.split('\\')[:-1]) + '\\'
+if getattr(sys, 'frozen', False):
+    base_path = os.path.dirname(sys.executable)
+else:
+    base_path = os.path.dirname(os.path.abspath(__file__))
+
+miraPath_path = base_path + os.sep
+
 debug.setLocalPath(miraPath_path)
 # debug.cleanDebug()
 
