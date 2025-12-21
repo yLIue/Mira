@@ -20,36 +20,22 @@ Mira可以将源文件同步到映射文件，也可以将映射文件同步到�
 
 ```
 Mira/
-├── config/
-│   ├── user.cfg
-├── .gitignore
-└── README.md
+└── etc/
+    └── config.ini
 ```
 
-
+### 仓库目录结构
 
 ```
-Mira/
-├── config/
-│   ├── components/
-│   │   ├── Button.js
-│   │   └── Header.js
-│   ├── utils/
-│   │   └── helpers.js
-│   └── index.js
-├── public/
-│   ├── index.html
-│   └── favicon.ico
-├── package.json
-└── README.md
+.mira/
+├── objects/ ->Hash
+├── logs/
+│   └── HEAD
+├── staging
+├── maps
+└── HEAD
 ```
 
 
 
 ## 开发进度
-
-- [ ] 配置文件
-- [ ] 仓库初始化
-- [ ] 文件映射
-- [ ] 文件同步
-- [ ] log

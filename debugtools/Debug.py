@@ -3,8 +3,12 @@ import os
 import shutil
 import time
 from datetime import datetime
-from yliuetools import Color
 import subprocess
+
+if __package__ is None or __package__ == '':
+    from Color import Color
+else:
+    from .Color import Color
 
 
 class Debug(object):
@@ -256,13 +260,13 @@ class Debug(object):
     def setLocalPath(self, _localPath: str):
         self.__localPath = _localPath
 
-    def DebugPath(self, _defaultPath: str):
+    def DebugPath(self):
         _localPath = self.__localPath
         try:
             _path = _localPath + '.debug'
         except TypeError:
             self.logError('初始化debug文件失败:没有设置本地路径,请用Debug.setLocalPath')
-            return _defaultPath
+            return None
         if self.__switch:
             try:
                 os.mkdir(_path)
@@ -271,7 +275,7 @@ class Debug(object):
             except FileNotFoundError:
                 self.logError(f'初始化debug文件失败:项目本地路径不存在:{_localPath}')
                 return _localPath
-            return _path + '\\'
+            return _path
 
         try:
             shutil.rmtree(_path)

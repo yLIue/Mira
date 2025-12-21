@@ -1,7 +1,9 @@
-# Test
+# My
 .debug/
 .befor/
 .log/
+.ytest/
+.ybin/
 
 # General
 .idea/

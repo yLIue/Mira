@@ -1,22 +1,20 @@
-from module import debug, Error, getCommand, IniProcess
+from module import debug, Error, IniFile
+import miraPath
 
 
-def Config(_args: list[str], _data: dict):
-    _commands = _data['commands']
-    _config = _data['config']
-    _path = _data['directory']['etc']['configFile']
+def Config(_args: list[str]) -> None:
     debug.log(f'调用config函数,args: {_args}')
 
-    if len(_args) == 0:
-        Error.NoArgs()
-    if len(_args) == 3:
-        _command = getCommand(_args[0], _commands['long'])
-        if _command is None:
-            Error.NoFindCommand(_args[0], _commands['long'])
-            return
-        if _command == '--global':
-            [_title, _key] = _args[1].split('.')
-            _config[_title][_key] = _value = _args[2]
-
-            IniProcess.save(_path, _config)
-
+    if len(_args) != 3 or _args[0] != '--global':
+        Error.ConfigArgError()
+        return
+    _configIni = IniFile(miraPath.configIni)
+    _dict = _configIni.load()
+    [_title, _key] = _args[1].split('.')
+    try:
+        _dict[_title][_key]
+    except KeyError:
+        print('没查到此配置文件')
+        return
+    _dict[_title][_key] = _value = _args[2]
+    _configIni.save(_dict)

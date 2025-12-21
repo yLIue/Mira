@@ -1,59 +1,67 @@
 import sys
+import traceback
+import miraPath
+import miraInfo
+import miraPrint
 from module import *
 from bin import *
 
-# initGlobal
-PATH = '\\'.join(__file__.split('\\')[:-1]) + '\\'
-debug.setLocalPath(PATH)
-
-# 可选,清除debug的文件夹
-# debug.cleanDebug()
-
-# global
-LOCAL_PATH = debug.DebugPath(PATH)
-DIRECTORY_PATH = f'{LOCAL_PATH}etc\\directories.ini'
-DIRECTORY = {}
-CONFIG = {}
-COMMANDS = {}
-FUNCTION_DICT = {
-    'config': Config
+# 函数注册器
+RegisterFunction = {
+    'config': Config,
+    'status': Status,
+    'add': Add,
+    'init': Init,
+    'commit': Commit,
+    'look': Look,
+    'log': Log,
+    'map': Map,
+    'reset': Reset
 }
 
 
-def loadConfig() -> None:
-    global CONFIG, DIRECTORY, COMMANDS
+def initMira():
     try:
-        DIRECTORY = IniProcess.load(DIRECTORY_PATH)
-    except FileNotFoundError:
-        InitMira(LOCAL_PATH)
-        DIRECTORY = IniProcess.load(DIRECTORY_PATH)
-    CONFIG = IniProcess.load(DIRECTORY['etc']['configFile'])
-    COMMANDS = IniProcess.load(DIRECTORY['etc']['commandsFile'])
-
-    debug.log()
-    debug.logOk('读出配置文件')
-    debug.log(f'directory: {DIRECTORY}', 'OUTPUT')
-    debug.log(f'config: {CONFIG}', 'OUTPUT')
-    debug.log(f'commands: {COMMANDS}', 'OUTPUT')
-    debug.log()
+        os.mkdir(miraPath.etc)
+        _configIni = IniFile(miraPath.configIni)
+        _configDict = {
+            'info': {
+                'version': miraInfo.version
+            },
+            'user': {
+                'name': miraInfo.defaultUser,
+                'email': miraInfo.defaultEmail
+            }
+        }
+        _configIni.save(_configDict)
+        debug.logOk('mira初始化成功')
+    except FileExistsError:
+        debug.logError('初始化失败 文件已经存在')
 
 
 def resolveArgs(_args):
     if not len(_args):
-        Error.NoArgs()
+        miraPrint.noCommand()
         return
-
-    _command = getCommand(_args[0], list(COMMANDS.keys()))
-    FUNCTION_DICT[_command](_args[1:], {
-        'commands': COMMANDS[_command],
-        'config': CONFIG,
-        'directory': DIRECTORY
-    })
+    _command = getCommand(_args[0], list(RegisterFunction.keys()))
+    try:
+        RegisterFunction[_command](_args[1:])
+    except KeyError:
+        Error.NoFindCommand(_args[0], list(RegisterFunction.keys()))
 
 
 def main() -> None:
-    loadConfig()
-    resolveArgs(sys.argv[1:])
+    try:
+        initMira()
+        resolveArgs(sys.argv[1:])
+    except Exception:
+        debug.logError(f'异常!!! {traceback.format_exc()}')
+        if not debug.isDebug():
+            print('你成功的发现了一个bug,恭喜!!!')
+            print('请联系邮箱2138347243@qq.com或者去github反馈')
+            print('github: https://github.com/yLIue/Mira')
+            print()
+            print(traceback.format_exc())
 
 
 if __name__ == '__main__':
