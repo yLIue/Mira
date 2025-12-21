@@ -37,3 +37,32 @@ def NotFindFile(_file):
 def ResetArgError():
     print('致命错误: reset 参数有误')
     print("'mira add [--hard] <hash>'")
+
+
+def NotFindTag(_tag):
+    print(f'致命错误: 映射 {_tag} 不存在')
+
+
+def LookArgError():
+    print('致命错误: look 参数有误')
+    print("'mira look <hash>'")
+
+
+def ConfigArgError():
+    print('致命错误: config 参数有误')
+    print("'mira config --global user.<name/email> <修改的内容>'")
+
+
+def CommitArgError():
+    print('致命错误: commit 参数有误')
+    print("'mira commit -m <描述>'")
+
+
+def MapAddArgError():
+    print('致命错误: map add 参数有误')
+    print("'mira map add <映射标记> <文件> <目标路径> [<映射文件名>]'")
+
+
+def MapRemoveArgError():
+    print('致命错误: map remove 参数有误')
+    print("'mira map remove <映射标记>'")
