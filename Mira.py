@@ -6,7 +6,6 @@ import miraPrint
 from module import *
 from bin import *
 
-
 # 函数注册器
 RegisterFunction = {
     'config': Config,
@@ -57,6 +56,12 @@ def main() -> None:
         resolveArgs(sys.argv[1:])
     except Exception:
         debug.logError(f'异常!!! {traceback.format_exc()}')
+        if not debug.isDebug():
+            print('你成功的发现了一个bug,恭喜!!!')
+            print('请联系邮箱2138347243@qq.com或者去github反馈')
+            print('github: https://github.com/yLIue/Mira')
+            print()
+            print(traceback.format_exc())
 
 
 if __name__ == '__main__':
