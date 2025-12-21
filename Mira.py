@@ -2,6 +2,7 @@ import sys
 import traceback
 import miraPath
 import miraInfo
+import miraPrint
 from module import *
 from bin import *
 
@@ -41,7 +42,7 @@ def initMira():
 
 def resolveArgs(_args):
     if not len(_args):
-        Error.NoArgs()
+        miraPrint.noCommand()
         return
     _command = getCommand(_args[0], list(RegisterFunction.keys()))
     try:
